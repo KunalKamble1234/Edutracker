@@ -80,6 +80,7 @@
                     <th>Quiz name</th>
                     <th>Launched on</th>
                     <th>Action</th>
+                    <th>ReAttempt</th>
                 </tr>
             </table>
         </div>
@@ -112,6 +113,7 @@
             var quizes=data;
             const nA=document.getElementById('notAttempted');
             const A=document.getElementById('Attempted');
+            const rA=document.getElementById('ReAttempt');
             for(let i=0;i<quizes.length;i++)
             {
                 if(quizes[i].status)
@@ -121,6 +123,7 @@
                         <td>${quizes[i].name}</td>
                         <td>${quizes[i].date}</td>
                         <td><button onclick="window.location.href='/api/resp/report/?ID=${username}&quizid=${quizes[i]._id}&quizname=${quizes[i].name}';">View report</button></td>
+                        <td><button onclick="window.location.href='/api/resp/attemptQuiz/?ID=${username}&quizid=${quizes[i-1]._id}';">Re-Attempt</button></td>
                     </tr>
                     `
                 }
