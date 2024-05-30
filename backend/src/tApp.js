@@ -1,7 +1,7 @@
 const mongoose=require("mongoose");
 mongoose.set('strictQuery',true);
 // atlas connection string= mongodb+srv://pratik_k:aCJLmZTfr97NMLSW@cluster0.uwon6s0.mongodb.net/test
-mongoose.connect("mongodb+srv://pratikK:dY3FXYuu69NEQK7F@cluster0.h6ho9li.mongodb.net/?retryWrites=true&w=majority",{
+mongoose.connect("mongodb+srv://prajjwalsonaje:H1PbV5iLs9uYpH7P@cluster0.wmdix3a.mongodb.net/",{
     useNewUrlParser: true,
     useUnifiedTopology:true,
 }).then(()=>console.log("connection successfull..."))

@@ -107,99 +107,122 @@ router.post("/post/", async (req, res) => {
 router.get("/msg/",(req,res)=>{
     let id=req.query['quizid'];
     res.send(`
-    <style>
-    *{
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    * {
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     }
-    body{
+    body {
         overflow: scroll;
     }
-    section{
+    section {
         box-sizing: border-box;
         border-radius: 10px;
         height: 550px;
         width: 800px;
         background-color: #93f4ffea;
         position: fixed;
-        left: calc( 50% - 400px);
-        top: calc( 50% - 275px);
+        left: calc(50% - 400px);
+        top: calc(50% - 275px);
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.317);
         padding: 50px;
     }
-    #msg{
+    #msg {
         height: 400px;
-        width:700px;
+        width: 700px;
         border-radius: 10px;
         border: none;
         padding: 20px;
         box-sizing: border-box;
         text-align: justify;
-        font-size: .45cm;
+        font-size: 0.45cm;
         overflow: scroll;
     }
-    #copy{
+    .button-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 30px;
+    }
+    .copy-button {
         font-weight: 900;
-        position: relative;
-        left: 85.5%;
         height: 40px;
         border-radius: 3px;
         border: none;
-        margin-top: 30px;
         background: #01ADD5;
     }
-    #copy:hover{
+    .copy-button:hover {
         background: #01c3ef;
         cursor: pointer;
     }
-    #msg:focus,#copy:focus{
+    #msg:focus, .copy-button:focus {
         outline: none;
     }
-    ::-webkit-scrollbar{
+    ::-webkit-scrollbar {
         height: 0;
         width: 8px;
     }
-    ::-webkit-scrollbar-track{
+    ::-webkit-scrollbar-track {
         background: rgba(128, 128, 128, 0.297);
         border-radius: 5px;
     }
-    ::-webkit-scrollbar-thumb{
+    ::-webkit-scrollbar-thumb {
         background: #02a7cd;
         border-radius: 5px;
     }
-    textarea{
+    textarea {
         resize: none;
     }
-    #qr-code{
+    #qr-code {
         position: relative;
         left: 40%;
         top: 100vh;
     }
-    </style>
-    <section>
-        <textarea id="msg">Dear students,\nA new quiz has been posted on the Edutracker platform developed by our college students.\nYou can attempt the quiz by visiting the following link:\nhttp://${ip}:3000/api/main/\nMake sure you are connected to the college wifi.</textarea>
-        <button id="copy" type="button" onclick="copyFunction()">Select Message</button>
-    </section>
-    <div id="qr-code"></div>
-    <script src=
-        "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
-    </script>
-    <script>
-    function copyFunction() {
-        // Get the text field
-        var copyText = document.getElementById("msg");
+</style>
+</head>
+<body>
+<section>
+    <textarea id="msg">Dear students,\nA new quiz has been posted on the Edutracker platform developed by our college students.\nYou can attempt the quiz by visiting the following link:\nhttp://${ip}:3000/api/main/\nMake sure you are connected to the college wifi.</textarea>
+    <div class="button-container">
+        <button class="copy-button" type="button" onclick="copyFunction()">Copy Message</button>
+    </div>
+</section>
+<div id="qr-code"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+function copyFunction() {
+    // Get the text field
+    var copyText = document.getElementById("msg");
     
-        // Select the text field
-        copyText.select();
-    }
-    var qrcode = new QRCode("qr-code", {
-        text: "http://${ip}:3000/api/main/",
-        width: 256,
-        height: 256,
-        colorDark : "#01ADD5",
-        colorLight : "#ddfafc",
-        correctLevel : QRCode.CorrectLevel.H
-       });
-    </script>
+    // Select the text field
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(copyText.value).then(() => {
+        // Optionally, you can notify the user that the text has been copied
+        alert("Copied to clipboard: " + copyText.value);
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
+    });
+}
+
+var qrcode = new QRCode("qr-code", {
+    text: "http://${ip}:3000/api/main/",
+    width: 256,
+    height: 256,
+    colorDark : "#01ADD5",
+    colorLight : "#ddfafc",
+    correctLevel : QRCode.CorrectLevel.H
+});
+</script>
+</body>
+</html>
+
     `);
 });
   
