@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "nodemon backend/src/tApp.js",
+    "start": "node backend/src/tApp.js",
     "build": "set \"GENERATE_SOURCEMAP=false\""
   },
   "dependencies": {
