@@ -26,6 +26,10 @@ const cors  = require('cors');
 app.use(express.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.redirect('/api/main');
+  });  
+
 app.use('/api/quizBank/',require('../routes/quizBank'));
 app.use('/api/resp/',require('../routes/resp'));
 app.use('/api/student/',require('../routes/student'));
